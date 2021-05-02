@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { useReducer } from "react";
+import "./App.css";
+import Board from "./board";
+import Counter from "./counter";
+import { BoardContext, initialState, reducer } from "./state";
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BoardContext.Provider value={{ state, dispatch }}>
+        <Counter />
+        <Board />
+      </BoardContext.Provider>
     </div>
   );
 }
