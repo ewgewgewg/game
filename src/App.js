@@ -1,18 +1,22 @@
 import { useReducer } from "react";
-import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Board from "./board";
-import Counter from "./counter";
+import Header from "./header";
 import { BoardContext, initialState, reducer } from "./state";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <BoardContext.Provider value={{ state, dispatch }}>
-        <Counter />
-        <Board />
-      </BoardContext.Provider>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <BoardContext.Provider value={{ state, dispatch }}>
+            <Header />
+            <Board />
+          </BoardContext.Provider>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
