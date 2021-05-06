@@ -1,13 +1,9 @@
-import { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./home";
-import Board from "./roots/board";
-import Header from "./roots/header";
 import ReturnHome from "./returnHome";
-import { BoardContext, initialState, reducer } from "./roots/state";
+import Roots from "./roots";
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <Router>
       <Switch>
@@ -15,10 +11,10 @@ function App() {
           <Home />
         </Route>
         <Route path="/game/roots">
-          <BoardContext.Provider value={{ state, dispatch }}>
-            <Header />
-            <Board />
-          </BoardContext.Provider>
+          <Roots />
+        </Route>
+        <Route path="/game/collide">
+          <div>Collide Stub</div>
           <ReturnHome />
         </Route>
       </Switch>
