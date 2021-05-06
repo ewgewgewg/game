@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./home";
-import ReturnHome from "./returnHome";
 import Roots from "./roots";
+import Collide from "./collide";
 
 function App() {
   return (
@@ -14,8 +14,7 @@ function App() {
           <Roots />
         </Route>
         <Route path="/game/collide">
-          <div>Collide Stub</div>
-          <ReturnHome />
+          <Collide />
         </Route>
       </Switch>
     </Router>

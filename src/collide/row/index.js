@@ -6,7 +6,7 @@ function Row({ rowNumber }) {
     .fill()
     .map((a, i) => <Space rowNumber={rowNumber} colNumber={i} />);
 
-  return <div className="rootsRow">{arr}</div>;
+  return <div className="collideRow">{arr}</div>;
 }
 
 export default Row;
