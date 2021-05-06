@@ -7,7 +7,7 @@ function Home() {
     <div className="home">
       <h1>Game Site</h1>
       <div>
-        <Link to="/roots">Underground Roots Game</Link>
+        <Link to="/game/roots">Underground Roots Game</Link>
       </div>
     </div>
   );

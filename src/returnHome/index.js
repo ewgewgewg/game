@@ -5,7 +5,7 @@ import "./returnHome.css";
 function ReturnHome() {
   return (
     <div className="returnHome">
-      <Link to="/">Home</Link>
+      <Link to="/game">Home</Link>
     </div>
   );
 }

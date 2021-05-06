@@ -11,10 +11,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/game">
           <Home />
         </Route>
-        <Route path="/roots">
+        <Route path="/game/roots">
           <BoardContext.Provider value={{ state, dispatch }}>
             <Header />
             <Board />
