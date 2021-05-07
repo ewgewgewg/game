@@ -1,3 +1,4 @@
 import getRandom from "./getRandom";
+import checkPlayerNear from "./checkPlayerNear";
 
-export { getRandom };
+export { getRandom, checkPlayerNear };
