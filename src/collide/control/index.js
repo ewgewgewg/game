@@ -5,23 +5,25 @@ import "./control.css";
 
 function Control() {
   const boardContext = useContext(BoardContext);
-  const state = boardContext.state;
+  const { pairs, enemyType } = boardContext.state;
   const handlePairChange = (event) => {
     boardContext.dispatch({
       type: "pairs",
       payload: event.target.value,
     });
   };
-  console.log("state", state);
+  const handleClose = () => {
+    alert("close");
+  };
 
   return (
     <div className="control">
-      <div>Pairs: {state.pairs}</div>
+      <div>Change Pairs to Restart: {pairs}</div>
       <Select
         labelId="demo-controlled-open-select-label"
         id="demo-controlled-open-select"
         // open={open}
-        // onClose={handleClose}
+        onClose={handleClose}
         // onOpen={handleOpen}
         // value={age}
         onChange={handlePairChange}
@@ -30,6 +32,7 @@ function Control() {
         <MenuItem value={2}>Two</MenuItem>
         <MenuItem value={3}>Three</MenuItem>
       </Select>
+      <div>Current Color Movement: {enemyType}</div>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { createContext } from "react";
-import { getRandom } from "./utils";
+import { colorMove, getRandom } from "./utils";
 
 const BoardContext = createContext();
-const initialState = { pairs: 2 };
+const initialState = { pairs: 2, enemyType: "Blue" };
 
 let positions = [];
 for (let i = 0; i < 5; i++) {
@@ -26,37 +26,40 @@ const reducer = (state, action) => {
       return { ...state, pairs: action.payload };
     case "newTurn":
       const newPlayer = action.payload;
-      const prevBlue = [];
-      const prevGreen = [];
-      for (let blue of state.blue) {
-        const row = newPlayer[0] - blue[0];
-        const column = newPlayer[1] - blue[1];
-        const rowAbs = Math.abs(row);
-        const columnAbs = Math.abs(column);
-        if (rowAbs === columnAbs) {
-          prevBlue.push(blue);
-        } else if (rowAbs > columnAbs && columnAbs !== 0) {
-          //do col
-          if (column > 0) {
-            //player has higher value than enemy
-            prevBlue.push([blue[0], blue[1] + 1]);
-          } else {
-            //enemy has higher value than player
-            prevBlue.push([blue[0], blue[1] - 1]);
-          }
-        } else {
-          //do row
-          if (row > 0) {
-            //player has higher value than enemy
-            prevBlue.push([blue[0] + 1, blue[1]]);
-          } else {
-            //enemy has higher value than player
-            prevBlue.push([blue[0] - 1, blue[1]]);
-          }
+      const prevBlue =
+        state.enemyType === "Blue"
+          ? colorMove(newPlayer, state.blue)
+          : state.blue;
+      const prevGreen =
+        state.enemyType === "Green"
+          ? colorMove(newPlayer, state.green)
+          : state.green;
+      const midBlue = prevBlue.map((a) => `${a[0]}/${a[1]}`);
+      const midGreen = prevGreen.map((a) => `${a[0]}/${a[1]}`);
+      const remove = {};
+      for (let i = 0; i < midBlue.length; i++) {
+        if (midGreen.indexOf(midBlue[i]) !== -1) remove[midBlue[i]] = true;
+      }
+      const finalBlue = [];
+      const finalGreen = [];
+
+      for (let blue of midBlue) {
+        if (!remove[blue]) {
+          finalBlue.push([Number(blue[0]), Number(blue[2])]);
+        }
+      }
+      for (let green of midGreen) {
+        if (!remove[green]) {
+          finalGreen.push([Number(green[0]), Number(green[2])]);
         }
       }
 
-      return { ...state };
+      return {
+        ...state,
+        player: newPlayer,
+        blue: finalBlue,
+        green: finalGreen,
+      };
     default:
       return state;
   }
