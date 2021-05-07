@@ -5,7 +5,6 @@ const colorMove = (newPlayer, color) => {
     const column = newPlayer[1] - item[1];
     const rowAbs = Math.abs(row);
     const columnAbs = Math.abs(column);
-    console.log("rowAbs", rowAbs, "columnAbs", columnAbs);
     if (rowAbs === columnAbs) {
       newArray.push(item);
     } else if ((rowAbs > columnAbs && columnAbs !== 0) || rowAbs === 0) {
