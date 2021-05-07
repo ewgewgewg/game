@@ -24,6 +24,39 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "pairs":
       return { ...state, pairs: action.payload };
+    case "newTurn":
+      const newPlayer = action.payload;
+      const prevBlue = [];
+      const prevGreen = [];
+      for (let blue of state.blue) {
+        const row = newPlayer[0] - blue[0];
+        const column = newPlayer[1] - blue[1];
+        const rowAbs = Math.abs(row);
+        const columnAbs = Math.abs(column);
+        if (rowAbs === columnAbs) {
+          prevBlue.push(blue);
+        } else if (rowAbs > columnAbs && columnAbs !== 0) {
+          //do col
+          if (column > 0) {
+            //player has higher value than enemy
+            prevBlue.push([blue[0], blue[1] + 1]);
+          } else {
+            //enemy has higher value than player
+            prevBlue.push([blue[0], blue[1] - 1]);
+          }
+        } else {
+          //do row
+          if (row > 0) {
+            //player has higher value than enemy
+            prevBlue.push([blue[0] + 1, blue[1]]);
+          } else {
+            //enemy has higher value than player
+            prevBlue.push([blue[0] - 1, blue[1]]);
+          }
+        }
+      }
+
+      return { ...state };
     default:
       return state;
   }

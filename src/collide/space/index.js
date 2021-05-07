@@ -24,23 +24,12 @@ function Space({ rowNumber, colNumber }) {
       className="collideSpace"
       onClick={() => {
         const playerNear = checkPlayerNear(player, rowNumber, colNumber);
-        if (playerNear) alert("space");
-        // if (!boardState[rowNumber][colNumber]) {
-        //   const add = expand(boardState);
-        //   boardContext.dispatch({
-        //     type: "memory",
-        //     payload: [rowNumber, colNumber],
-        //   });
-        //   boardContext.dispatch({
-        //     type: "act",
-        //     payload: add,
-        //   });
-        // } else {
-        //   alert("You have found the roots!");
-        //   boardContext.dispatch({
-        //     type: "reset",
-        //   });
-        // }
+        if (playerNear) {
+          boardContext.dispatch({
+            type: "newTurn",
+            payload: [rowNumber, colNumber],
+          });
+        }
       }}
     >{`R: ${rowNumber}, C: ${colNumber}`}</span>
   );
