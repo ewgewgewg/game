@@ -12,7 +12,10 @@ initialState.green = green;
 const reducer = (state, action) => {
   switch (action.type) {
     case "pairs":
-      return { ...state, pairs: action.payload };
+      const [player, blue, green] = generatePositions(action.payload);
+      return { ...state, player, blue, green, pairs: action.payload };
+    case "enemyType":
+      return { ...state, enemyType: action.payload };
     case "newTurn":
       const newPlayer = action.payload;
       const prevBlue =
