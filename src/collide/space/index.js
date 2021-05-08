@@ -6,9 +6,6 @@ import "./space.css";
 function Space({ rowNumber, colNumber }) {
   const boardContext = useContext(BoardContext);
   const { player, blue, green } = boardContext.state;
-  if (rowNumber === player[0] && colNumber === player[1]) {
-    return <span className="player collideSpace">PLAYER</span>;
-  }
   for (let point of blue) {
     if (rowNumber === point[0] && colNumber === point[1]) {
       return <span className="blue collideSpace">BLUE</span>;
@@ -18,6 +15,9 @@ function Space({ rowNumber, colNumber }) {
     if (rowNumber === point[0] && colNumber === point[1]) {
       return <span className="green collideSpace">GREEN</span>;
     }
+  }
+  if (rowNumber === player[0] && colNumber === player[1]) {
+    return <span className="player collideSpace">PLAYER</span>;
   }
   return (
     <span
