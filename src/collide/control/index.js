@@ -35,6 +35,13 @@ function Control() {
         <MenuItem value={3}>Three</MenuItem>
         <MenuItem value={4}>Four</MenuItem>
         <MenuItem value={5}>Five</MenuItem>
+        <MenuItem value={6}>Six</MenuItem>
+        <MenuItem value={7}>Seven</MenuItem>
+        <MenuItem value={8}>Eight</MenuItem>
+        <MenuItem value={9}>Nine</MenuItem>
+        <MenuItem value={10}>Ten</MenuItem>
+        <MenuItem value={11}>Eleven</MenuItem>
+        <MenuItem value={12}>Twelve</MenuItem>
       </Select>
       <div>Current Color Movement: {enemyType}</div>
       <div>Choose Active Color: </div>
