@@ -1,3 +1,4 @@
+import elementGenerator from "./elementGenerator";
 import getRandom from "./getRandom";
 
-export { getRandom };
+export { elementGenerator, getRandom };

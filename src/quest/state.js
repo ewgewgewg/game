@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { locationNames } from "./assets";
-import { getRandom } from "./utils";
+import { elementGenerator, getRandom } from "./utils";
 
 const BoardContext = createContext();
 
@@ -9,6 +9,8 @@ const initialState = {
   questScore: 0,
   activeLocations: [],
   seenLocations: [],
+  favor: { fire: 1, air: 1, water: 1, earth: 1 },
+  shields: { fire: 0, air: 0, water: 0, earth: 0 },
 };
 
 const endGameTest = (health, questScore) => {
@@ -39,15 +41,41 @@ const reducer = (state, action) => {
       const tempSeenLocations = state.seenLocations.slice();
       tempSeenLocations.push(newLocationIndex);
       const tempActiveLocations = state.activeLocations.slice();
-      tempActiveLocations.push({ name: locationNames[newLocationIndex] });
 
-      const end = endGameTest(tempHealth, action.questScore);
+      const { danger, reward } = elementGenerator(state.favor);
+      tempActiveLocations.push({
+        name: locationNames[newLocationIndex],
+        danger,
+        reward,
+      });
+
+      let end = endGameTest(tempHealth, state.questScore);
       if (end) return initialState;
       return {
         ...state,
         health: tempHealth,
         activeLocations: tempActiveLocations,
         seenLocations: tempSeenLocations,
+      };
+    case "locationAction":
+      let tempLocationHealth = state.health;
+      const difference =
+        action.danger - state.shields[action.dangerType.toLowerCase()];
+      tempLocationHealth -= Math.max(0, difference);
+      let tempLocationQuestScore = state.questScore;
+      tempLocationQuestScore -= Math.min(0, difference);
+      const tempLocationShields = { ...state.shields };
+      tempLocationShields[action.rewardType.toLowerCase()] += action.reward;
+      const locationEnd = endGameTest(
+        tempLocationHealth,
+        tempLocationQuestScore
+      );
+      if (locationEnd) return initialState;
+      return {
+        ...state,
+        health: tempLocationHealth,
+        questScore: tempLocationQuestScore,
+        shields: tempLocationShields,
       };
     default:
       return state;
