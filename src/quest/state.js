@@ -48,6 +48,10 @@ const reducer = (state, action) => {
         danger,
         reward,
       });
+      const tempShieldFavor = state.favor;
+      for (let fav in tempShieldFavor) {
+        tempShieldFavor[fav] *= 2;
+      }
 
       let end = endGameTest(tempHealth, state.questScore);
       if (end) return initialState;
@@ -56,6 +60,7 @@ const reducer = (state, action) => {
         health: tempHealth,
         activeLocations: tempActiveLocations,
         seenLocations: tempSeenLocations,
+        favor: tempShieldFavor,
       };
     case "locationAction":
       let tempLocationHealth = state.health;
