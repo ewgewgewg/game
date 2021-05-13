@@ -1,0 +1,13 @@
+.dashboard {
+  text-align: center;
+}
+
+.locationHolder {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.singleLocation {
+  padding: 5px;
+}

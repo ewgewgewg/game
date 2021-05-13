@@ -12,6 +12,9 @@ function Home() {
       <div>
         <Link to="/game/collide">Collide Game</Link>
       </div>
+      <div>
+        <Link to="/game/quest">Quest Game</Link>
+      </div>
     </div>
   );
 }
